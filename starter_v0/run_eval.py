@@ -28,7 +28,6 @@ ALLOWED_CASE_FAILURE_TYPES = {
     "missing_info",
 }
 
-
 def load_cases(path: Path, phase: str) -> list[dict[str, Any]]:
     data = json.loads(path.read_text(encoding="utf-8"))
     cases = data["cases"]

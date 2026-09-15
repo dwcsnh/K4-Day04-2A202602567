@@ -28,7 +28,7 @@ tools:
       required: [query]
 
   - name: check_service_status
-    description: "Kiểm tra trạng thái một dịch vụ."
+    description: "Kiểm tra trạng thái một dịch vụ hạ tầng dùng chung (VPN, email, SSO, wifi, printing) áp dụng cho nhiều người dùng trong một environment. KHÔNG dùng tool này để kiểm tra một thiết bị cá nhân cụ thể — trường hợp đó dùng inspect_device."
     parameters:
       type: object
       properties:
@@ -37,7 +37,7 @@ tools:
       required: [service]
 
   - name: inspect_device
-    description: "Kiểm tra thông tin và chẩn đoán thiết bị."
+    description: "Kiểm tra thông tin và chẩn đoán của MỘT thiết bị/tài sản cụ thể theo asset_id. Dùng khi yêu cầu nhắc đến một máy/asset cụ thể; không dùng để tra cứu trạng thái dịch vụ dùng chung trên toàn hệ thống."
     parameters:
       type: object
       properties:
@@ -75,7 +75,7 @@ tools:
 
   # ---------------- Optional/advanced tools ----------------
   - name: search_device_info
-    description: "Tìm thông tin công khai về một model thiết bị trên web. Chỉ truyền hãng, model và loại thông tin; không truyền asset ID, employee ID hoặc dữ liệu nội bộ."
+    description: "Tìm thông tin công khai về một model thiết bị trên web. Chỉ truyền hãng, model công khai và loại thông tin; TUYỆT ĐỐI KHÔNG truyền asset ID, employee ID, serial number, hostname, location hoặc bất kỳ dữ liệu nội bộ/diagnostics nào ra ngoài."
     parameters:
       type: object
       properties:
@@ -96,7 +96,7 @@ tools:
       required: [query]
 
   - name: create_ticket
-    description: "Tạo một ticket hỗ trợ."
+    description: "Tạo một ticket hỗ trợ (side effect, thay đổi trạng thái). Chỉ gọi với confirmed=true SAU KHI đã dùng clarify (yes_no) để người dùng xác nhận đúng summary/priority/asset_id trong hội thoại hiện tại. Nếu payload thay đổi sau khi đã xác nhận, phải hỏi xác nhận lại."
     parameters:
       type: object
       properties:
