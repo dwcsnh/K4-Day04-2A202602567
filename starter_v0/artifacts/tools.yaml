@@ -233,3 +233,14 @@ tools:
           default: true
           description: "BẮT BUỘC là true khi người dùng đã xác nhận rõ ràng."
       required: [summary, confirmed]
+
+  - name: approved_software_catalog
+    description: Look up if a software is approved for use within the company and get installation notes or restrictions. Do not use for troubleshooting.
+    parameters:
+      type: object
+      properties:
+        software_name:
+          type: string
+          description: "The name of the software to look up (e.g., 'Visual Studio Code', 'Docker', 'BitTorrent')."
+      required:
+        - software_name

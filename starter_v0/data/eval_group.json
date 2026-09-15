@@ -3,5 +3,115 @@
   "dataset_role": "group",
   "description": "Template intentionally left empty. The team must write exactly 10 original IT helpdesk cases: 5 single-turn query cases and 5 multi-turn turns cases.",
   "allowed_failure_types": ["wrong_tool", "wrong_arg_value", "wrong_boundary", "unnecessary_tool", "out_of_scope", "missing_info"],
-  "cases": []
+  "cases": [
+    {
+      "id": "G01_missing_asset_clarify", "phase": "B", "suite": "group",
+      "query": "Laptop của tôi không kết nối được wifi, kiểm tra giúp nhé.",
+      "failure_type": "missing_info",
+      "expect": {"tool_calls": [{"name": "clarify", "args": {"response_type": "text"}}]},
+      "metadata": {"skill": "clarify_asset", "difficulty": "medium", "what_it_tests": "Thiếu thông tin -> phải gọi clarify"}
+    },
+    {
+      "id": "G02_ambiguous_policy_or_status", "phase": "B", "suite": "group",
+      "query": "Cho tôi biết công ty quy định thế nào khi hệ thống email bị sập?",
+      "failure_type": "wrong_tool",
+      "expect": {"tool_calls": [{"name": "policy", "args": {"policy_area": "incident_response"}}]},
+      "metadata": {"skill": "route_policy", "difficulty": "medium", "what_it_tests": "Ý định mơ hồ giữa policy và status -> policy"}
+    },
+    {
+      "id": "G03_out_of_scope_refuse", "phase": "B", "suite": "group",
+      "query": "Làm thế nào để nướng bánh pizza ngon?",
+      "failure_type": "out_of_scope",
+      "expect": {"no_tool": true, "behavior": "refuse"},
+      "metadata": {"skill": "out_of_scope", "difficulty": "easy", "what_it_tests": "Yêu cầu ngoài phạm vi -> refuse"}
+    },
+    {
+      "id": "G04_valid_service_status", "phase": "B", "suite": "group",
+      "query": "Hệ thống sso production có đang gặp sự cố không?",
+      "failure_type": "wrong_tool",
+      "expect": {"tool_calls": [{"name": "check_service_status", "args": {"service": "sso", "environment": "production"}}]},
+      "metadata": {"skill": "route_shared_service", "difficulty": "easy", "what_it_tests": "Check service status"}
+    },
+    {
+      "id": "G05_valid_lookup_user", "phase": "B", "suite": "group",
+      "query": "Tra cứu thông tin nhân viên EMP-2024.",
+      "failure_type": "wrong_tool",
+      "expect": {"tool_calls": [{"name": "lookup_user", "args": {"employee_id": "EMP-2024"}}]},
+      "metadata": {"skill": "route_employee", "difficulty": "easy", "what_it_tests": "Lookup user by ID"}
+    },
+    {
+      "id": "G06_fill_missing_asset", "phase": "B", "suite": "group",
+      "turns": [
+        {"role": "user", "content": "Màn hình của tôi bị chớp nháy."},
+        {"role": "user", "content": "Mã máy của tôi là LT-204, kiểm tra phần cứng giúp."}
+      ],
+      "failure_type": "missing_info",
+      "expect": {"tool_calls": [{"name": "inspect_device", "args": {"asset_id": "LT-204", "check": "hardware"}}]},
+      "metadata": {"skill": "multiturn_fill_asset", "difficulty": "medium", "what_it_tests": "Bổ sung mã máy sau khi agent hỏi"}
+    },
+    {
+      "id": "G07_correction_turn2", "phase": "B", "suite": "group",
+      "turns": [
+        {"role": "user", "content": "Kiểm tra VPN trên máy LT-101."},
+        {"role": "user", "content": "Khoan đã, nhầm mã, hãy kiểm tra trên máy LT-105 nhé."}
+      ],
+      "failure_type": "wrong_arg_value",
+      "expect": {"tool_calls": [{"name": "inspect_device", "args": {"asset_id": "LT-105", "check": "vpn"}}]},
+      "metadata": {"skill": "multiturn_correction", "difficulty": "medium", "what_it_tests": "Đổi ý / sửa thông tin ở turn sau"}
+    },
+    {
+      "id": "G08_cancellation_action", "phase": "B", "suite": "group",
+      "turns": [
+        {"role": "user", "content": "Tạo giúp tôi ticket lỗi mạng mức high cho máy LT-204."},
+        {"role": "user", "content": "À mạng lại bình thường rồi, hủy yêu cầu tạo ticket đi."}
+      ],
+      "failure_type": "unnecessary_tool",
+      "expect": {"no_tool": true, "behavior": "answer_without_tool"},
+      "metadata": {"skill": "multiturn_cancel", "difficulty": "medium", "what_it_tests": "Hủy bỏ thao tác (cancellation)"}
+    },
+    {
+      "id": "G09_chain_inspect_format", "phase": "B", "suite": "group",
+      "turns": [
+        {"role": "user", "content": "Mình có thông tin: máy DT-087 lỗi RAM DIMM B1."},
+        {"role": "user", "content": "Hãy tóm tắt lỗi này thành technical report với tựa đề 'Lỗi RAM DT-087'."}
+      ],
+      "failure_type": "unnecessary_tool",
+      "expect": {"tool_calls": [{"name": "format_incident_report", "args": {"template": "technical", "incident_title": "Lỗi RAM DT-087"}}]},
+      "metadata": {"skill": "format_existing_findings", "difficulty": "medium", "what_it_tests": "Xâu chuỗi 2 tool (format report)"}
+    },
+    {
+      "id": "G10_ticket_confirmation", "phase": "B", "suite": "group",
+      "turns": [
+        {"role": "user", "content": "Xin hãy tạo ticket mức high tóm tắt là 'lỗi không in được'."},
+        {"role": "user", "content": "Tôi xác nhận tạo ticket này nhé."}
+      ],
+      "failure_type": "wrong_boundary",
+      "expect": {"tool_calls": [{"name": "create_ticket", "args": {"summary": "lỗi không in được", "priority": "high", "confirmed": true}}]},
+      "metadata": {"skill": "confirm_write", "difficulty": "medium", "what_it_tests": "Xác nhận tạo ticket -> gọi tool write"}
+    },
+    {
+      "id": "G11_approved_software_wireshark", "phase": "B", "suite": "group",
+      "query": "Tôi có thể cài đặt Wireshark trên máy tính công ty không?",
+      "failure_type": "wrong_tool",
+      "expect": {"tool_calls": [{"name": "approved_software_catalog", "args": {"software_name": "Wireshark"}}]},
+      "metadata": {"skill": "route_software_catalog", "difficulty": "easy", "what_it_tests": "Định tuyến đúng tool kiểm tra phần mềm"}
+    },
+    {
+      "id": "G12_approved_software_chatgpt", "phase": "B", "suite": "group",
+      "query": "Công ty mình có cho dùng ChatGPT không?",
+      "failure_type": "wrong_tool",
+      "expect": {"tool_calls": [{"name": "approved_software_catalog", "args": {"software_name": "ChatGPT"}}]},
+      "metadata": {"skill": "route_software_catalog", "difficulty": "easy", "what_it_tests": "Kiểm tra phần mềm phổ biến"}
+    },
+    {
+      "id": "G13_approved_software_notion", "phase": "B", "suite": "group",
+      "turns": [
+        {"role": "user", "content": "Tôi muốn ghi chú công việc hàng ngày."},
+        {"role": "user", "content": "Phần mềm Notion có được phép dùng không?"}
+      ],
+      "failure_type": "wrong_tool",
+      "expect": {"tool_calls": [{"name": "approved_software_catalog", "args": {"software_name": "Notion"}}]},
+      "metadata": {"skill": "route_software_catalog", "difficulty": "medium", "what_it_tests": "Kiểm tra phần mềm trong ngữ cảnh multi-turn"}
+    }
+  ]
 }

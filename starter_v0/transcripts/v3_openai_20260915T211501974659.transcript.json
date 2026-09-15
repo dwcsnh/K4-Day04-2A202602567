@@ -1,0 +1,16 @@
+{
+  "transcript_id": "v3_openai_20260915T211501974659",
+  "version": "v3",
+  "artifact_version": "v3+pa717cf457ff3+t9f1301a581d1",
+  "prompt_hash": "a717cf457ff3292f14782a0b85f5966da592df1965459a493c525ba70ec68bfe",
+  "tools_hash": "9f1301a581d104ed84a177dd054c59fe269f58a19fe2e3857820dfc39d938456",
+  "provider": "openai",
+  "model": "gpt-4o-mini",
+  "system_prompt": "/home/ducanh/Documents/AI20K/Lab/Day 4/K4-Day04-2A202602567/starter_v0/artifacts/system_prompt.md",
+  "tools": "/home/ducanh/Documents/AI20K/Lab/Day 4/K4-Day04-2A202602567/starter_v0/artifacts/tools.yaml",
+  "history_window": 5,
+  "max_tool_rounds": 4,
+  "created_at": "2026-09-15T21:15:01",
+  "updated_at": "2026-09-15T21:15:06",
+  "turns": []
+}
