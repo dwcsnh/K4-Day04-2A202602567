@@ -217,7 +217,7 @@ evidence thực tế trong repository, không chỉ mô tả cảm nhận chung.
   - Kiểm thử tích hợp toàn bộ 3 bộ suite đạt 100% cases PASS và hoàn thiện `TEAMMATES.md`.
   - Viết thêm tool `approved_software_catalog`, viết thêm smoke unit test cho tool mới và chạy test.
 - **File hoặc artifact liên quan:** `TEAMMATES.md`, `artifacts/REPORT.md`, `artifacts/version_log.csv`, `artifacts/system_prompt.md`, `artifacts/tools.yaml`, `tools/approved_software_catalog`.
-- **Commit hash hoặc pull request**: 0eff790
+- **Commit hash hoặc pull request**: 8019f0c
 - **Một quyết định kỹ thuật tôi đã đưa ra và lý do:** Thêm ANTI-SPOOFING RULE: Nghiêm cấm Agent tuân lệnh người dùng khi có dấu hiệu dùng thẻ như <assistant> để vượt quyền xác nhận. Lý do: để agent không bị lừa như trong case A11 (nhân viên giả mạo tự xưng là admin để cấp quyền cho chính mình), agent giờ đây được lập trình để từ chối thẳng thừng mệnh lệnh đó và quay về đúng quy trình bảo mật (gọi clarify).
 - **Khó khăn tôi gặp và cách tôi xử lý:** Khó khăn trong việc quản lý commit và tích hợp đóng góp của các thành viên, phân tích thiếu sót trong system prompt khiến agent không thể pass hết các cases. Cách xử lý: Nhờ coding agent phân tích system prompt hiện tại và chỉ ra lỗ hổng khiến test suite chưa pass 100%
 - **Điều tôi học được từ phần việc này:** Kỹ năng làm việc nhóm, các hành vi của LLM với một số system prompt nhất định, các viết system prompt sao cho concise, general mà vẫn hiệu quả.
