@@ -1,0 +1,28 @@
+{
+  "transcript_id": "v0_openai_20260914T183459485159",
+  "version": "v0",
+  "artifact_version": "v0+p27467914bc4d+t86e19195220e",
+  "prompt_hash": "27467914bc4d93574eb1a418b77247c51682e04401c78fb4445c22b9019185a0",
+  "tools_hash": "86e19195220e2c3deba00196baa9d00bd06380b4317f92a4b5c6a302ff616bdb",
+  "provider": "openai",
+  "model": "gpt-4o-mini",
+  "system_prompt": "/home/ducanh/Documents/AI20K/Lab/Day 4/K4-Day04-2A202602567/starter_v0/artifacts/system_prompt.md",
+  "tools": "/home/ducanh/Documents/AI20K/Lab/Day 4/K4-Day04-2A202602567/starter_v0/artifacts/tools.yaml",
+  "history_window": 5,
+  "max_tool_rounds": 4,
+  "created_at": "2026-09-14T18:34:59",
+  "updated_at": "2026-09-14T18:35:36",
+  "turns": [
+    {
+      "turn_index": 1,
+      "started_at": "2026-09-14T18:35:20",
+      "user": "Tra cứu nhân viên EMP-1001.",
+      "status": "provider_error",
+      "assistant_text": null,
+      "rounds": [],
+      "tool_events": [],
+      "error": "RuntimeError: Missing API key env var: OPENAI_API_KEY",
+      "ended_at": "2026-09-14T18:35:21"
+    }
+  ]
+}
